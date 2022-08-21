@@ -1,0 +1,15 @@
+version: "3"
+services:
+  node-app:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./:/app:ro # the bind between mac and container folders
+      - /app/node_modules # the hack for not overcopy node_modules, this creates an annonymous volume
+    environment:
+      - NODE_ENV=development
+      - MONGO_USER=mongousername
+      - MONGO_PASSWORD=mongopassword
+    command: npm run dev

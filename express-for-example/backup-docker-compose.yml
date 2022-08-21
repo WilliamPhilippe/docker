@@ -1,0 +1,13 @@
+version: "3"
+services:
+  node-app:
+    build: . # where the Dockerfile should be
+    ports:
+      - "3000:3000" # the <port_mac>:<port_container> thing
+    volumes:
+      - ./:/app:ro # the bind between mac and container folders
+      - /app/node_modules # the hack for not overcopy node_modules
+    # env_file:
+    # - ./.env
+    environment: # .env
+      - PORT=3000

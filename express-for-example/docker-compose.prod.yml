@@ -1,0 +1,12 @@
+version: "3"
+services:
+  node-app:
+    build:
+      context: .
+      args:
+        NODE_ENV: production
+    environment:
+      - NODE_ENV=production
+      - MONGO_USER=mongousername
+      - MONGO_PASSWORD=mongopassword
+    command: node index.js
