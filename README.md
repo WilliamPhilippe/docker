@@ -184,6 +184,7 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
 # replace up with down -v to stop everything
 [CONTAINER NAMES] # if you want to start only some container with their dependencies
 --no-deps # use it not to respect the dependencies
+--build # redo the build
 ```
 
 ## Network

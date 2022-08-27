@@ -1,9 +1,12 @@
 version: "3" # version of docker-compose
 services: # we want to list all services here
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/config.d/default.conf:ro
+
   node-app: # name of the server
     build: . #from where we`re getting the Dockerfile
-    ports: # all port redirects
-      - "3000:3000"
     environment: # environment variables. note that this is being overridden by the other files
       - PORT=3000
     depends_on: # this will make all dependences be executed firstly, but this cannot garatee the mongo will finish the startup before docker start the node-app service.
@@ -16,6 +19,9 @@ services: # we want to list all services here
       - MONGO_INITDB_ROOT_PASSWORD=mongopassword
     volumes:
       - mongo-db:/data/db # <volume name>:<where we store data, from docs> | we also need to declare the volume down below because a named volume can be used by multiple servers/containers
+
+  redis:
+    image: redis
 
 volumes: # declaring named volumes
   mongo-db: # as we created volume "mongo-db", we need to declare it here
