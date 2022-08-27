@@ -7,6 +7,7 @@ const config = require("./config/config");
 let RedisStore = require("connect-redis")(session);
 const postRoutes = require("./routes/postRoutes");
 const userRoutes = require("./routes/userRoutes");
+const { logger } = require("./middleware/authMiddleware");
 
 const up = async () => {
   let redisClient = redis.createClient({
@@ -25,6 +26,7 @@ const up = async () => {
 
   const app = express();
 
+  app.enable("trust proxy");
   app.use(express.json());
 
   app.use(
@@ -42,6 +44,8 @@ const up = async () => {
       },
     })
   );
+
+  app.use(logger);
 
   app.use("/api/v1/post", postRoutes);
   app.use("/api/v1/users", userRoutes);

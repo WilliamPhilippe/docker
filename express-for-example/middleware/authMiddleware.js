@@ -12,4 +12,10 @@ const protect = async (req, res, next) => {
   next();
 };
 
-module.exports = { protectMiddleware: protect };
+const logger = async (req, res, next) => {
+  console.info("LOGGER:", req);
+
+  next();
+};
+
+module.exports = { protectMiddleware: protect, logger };
